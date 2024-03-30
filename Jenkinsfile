@@ -16,7 +16,7 @@ pipeline {
         stage('Run tests') {
             steps {
                 // Run your Python tests
-                sh 'python test_math_utils.py'
+                sh 'pytest test_math_utils.py'
             }
         }
     }
