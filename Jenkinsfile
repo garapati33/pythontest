@@ -1,42 +1,22 @@
 pipeline {
     agent any
-    
     stages {
-        stage('Install Dependencies') {
+        stage('Checkout') {
             steps {
-                sh 'pip install -r requirements.txt'
+                // Checkout your code from version control
+                git 'https://github.com/garapati33/pythontest.git'
             }
         }
-        
-        stage('Run Tests') {
+        stage('Install dependencies') {
             steps {
-                sh 'pytest'
+                // Install pytest
+                sh 'pip install pytest'
             }
         }
-        
-        stage('Code Quality Checks') {
+        stage('Run tests') {
             steps {
-                sh 'flake8 .'
-            }
-        }
-        
-        stage('Code Coverage') {
-            steps {
-                sh 'coverage run -m pytest'
-                sh 'coverage report'
-                sh 'coverage xml'
-            }
-            post {
-                always {
-                    junit 'reports/**/*.xml'
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, includes: '**/htmlcov/index.html', reportDir: 'htmlcov', reportFiles: 'index.html', reportName: 'Code Coverage'])
-                }
-            }
-        }
-        
-        stage('Deploy') {
-            steps {
-                sh 'mvn clean package'
+                // Run your Python tests
+                sh 'python test_math_utils.py'
             }
         }
     }
