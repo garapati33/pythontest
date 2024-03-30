@@ -10,7 +10,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 // Install pytest
-                sh 'pip install pytest'
+                sh 'pip3 install pytest'
             }
         }
         stage('Run tests') {
